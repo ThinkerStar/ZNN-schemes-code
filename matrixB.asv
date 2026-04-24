@@ -1,0 +1,5 @@
+function output = matrixB(t)
+
+output =[cocs(t)+1i*sin];
+
+end

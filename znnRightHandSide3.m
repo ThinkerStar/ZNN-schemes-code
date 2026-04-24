@@ -3,8 +3,8 @@ function output = znnRightHandSide3(t, y, gamma)
 disp(t);
 
 % Update x and Lambda
-x = y(1:4);
-lambda = y((end - 4 + 1): end);
+x = y(1:7);
+lambda = y((end - 7 + 1): end);
 Lambda = diag(lambda);
 A1 = matrixA(t);
 W1 = matrixB(t);
@@ -21,11 +21,11 @@ syms w ;
 dotb = diff(vectorC(w));
 w=t;
 db = eval(dotb);
-S1=[W1,conj(A1');A1,zeros(2)];
-c=[0;0;b1];
-dotS=[dW,conj(dA');dA,zeros(2)];
-dotM=[dotS,zeros(4);zeros(4),zeros(4)];
-dotc=[0;0;db];
+S1=[W1,conj(A1');A1,zeros(3,3)];
+c=[0;0;0;0;b1];
+dotS=[dW,conj(dA');dA,zeros(3,3)];
+dotM=[dotS,zeros(7);zeros(7),zeros(7)];
+dotc=[0;0;0;0;db];
 
 err = S1*x-c;
 absErr1 = abs(real(err));
@@ -42,7 +42,7 @@ for k = 1:length(err)
 end
 ksi = 0.001;
 signErr2=2/pi*atan(abs(err1)/ksi);
-vecD= [dotc-Lambda*(AFMnew_2(abs(err)).*exp(1i*(angle(err))));gamma*exp(t)*signErr2];
+vecD= [dotc-Lambda*(AFMnew_3(abs(err)).*exp(1i*(angle(err))));gamma*exp(t)*signErr2];
 % Right handside of the ODE
 output = -dotM*y + vecD;
 

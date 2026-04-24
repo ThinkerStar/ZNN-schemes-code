@@ -4,8 +4,8 @@ function output = matrixM(t)
 
 A = matrixA(t);
 W=matrixB(t);
-S=[W,conj(A'); A, zeros(2)];
+S=[W,conj(A'); A, zeros(3,3)];
 
-output = [S,zeros(4, 4);zeros(4, 4), eye(4,4)];
+output = [S,zeros(7, 7);zeros(7,7), eye(7,7)];
 
 end
